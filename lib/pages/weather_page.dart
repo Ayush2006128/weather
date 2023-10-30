@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather/services/weather_service.dart';
 
 import '../models/weather_model.dart';
@@ -29,7 +30,25 @@ class _WeatherPageState extends State<WeatherPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _fetchWeather();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(_weather?.cityName ?? "Loding city..."),
+            Lottie.asset("assets/stormy.json"),
+            Text("${_weather?.temperature}*C"),
+            Text(_weather?.mainCondition ?? "Loding weather..."),
+          ],
+        ),
+      ),
+    );
   }
 }
