@@ -29,6 +29,33 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
 
+  String setAnim(String? mainCondition) {
+    if (mainCondition == null) return 'assets/sunny.json';
+    switch (mainCondition.toLowerCase()) {
+      case 'clouds':
+        return 'assets/thunderstorm_image.png';
+      case 'fog':
+        return 'assets/drizzle_image.png';
+      case 'smoke':
+        return 'assets/rain_image.png';
+      case 'snow':
+        return 'assets/snow_image.png';
+      case 'haze':
+        return 'assets/atmosphere_image.png';
+      case 'drizzle':
+        return 'assets/snow_image.png';
+      case 'mist':
+        return 'assets/atmosphere_image.png';
+      case 'clear':
+        return 'assets/sunny.json';
+      case 'rain':
+      case 'shower rain':
+        return 'assets/rainy.json';
+      default:
+        return 'assets/sunny.json';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -42,9 +69,13 @@ class _WeatherPageState extends State<WeatherPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Icon(Icons.location_city_rounded),
             Text(_weather?.cityName ?? "Loding city..."),
-            Lottie.asset("assets/stormy.json"),
-            Text("${_weather?.temperature}*C"),
+            Lottie.asset(setAnim(_weather?.mainCondition)),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text("${_weather?.temperature}*C"),
+              Icon(Icons.thermostat),
+            ]),
             Text(_weather?.mainCondition ?? "Loding weather..."),
           ],
         ),
